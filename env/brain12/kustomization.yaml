@@ -6,5 +6,5 @@ resources:
   - dex/custom_theme/custom_theme_secret_sealed.json
   - oidc-authservice/oidc-authservice-client-parameters-secret-sealed.json
   - oidc-authservice/oidc-authservice-parameters-secret-sealed.json
-  - user-namespace/profile-instance.yaml
+  # - user-namespace/profile-instance.yaml
   - centraldashboard/centraldashboard-parameters-secret-sealed.json
