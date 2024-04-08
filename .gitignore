@@ -8,6 +8,7 @@
 !user-namespace/**/profile-instance.yaml
 !namespace.yaml
 !.github/**/*.yaml
+!manifests/**/*.yaml
 *.json
 *.env
 *.backup
