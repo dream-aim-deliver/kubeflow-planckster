@@ -50,7 +50,7 @@ jobs:
         
     - name: Run kustomize for brain12
       run: |
-        kustomize build env/brain12 | tee brain12_install.yaml
+        kustomize build manifests/brain12 | tee brain12_install.yaml
         if [ ! -s brain12_install.yaml ]; then
           echo "brain12_install.yaml is empty"
           exit 1
