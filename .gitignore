@@ -2,3 +2,12 @@
 *.key
 *.dec
 *.crt
+# Do not track original files
+*.yaml 
+!kustomization.yaml
+!user-namespace/**/profile-instance.yaml
+!namespace.yaml
+!.github/**/*.yaml
+*.json
+*.env
+*.backup

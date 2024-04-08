@@ -34,7 +34,7 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 shift 2
 
 if [ "$1" == "--all" ]; then
-    files=$(find "$SCRIPT_DIR/.." -type f)
+    files=$(find "$SCRIPT_DIR/../env" -type f)
     # if [ "$operation" == "encrypt" ]; then
     #     files=$(find "$SCRIPT_DIR/.." -type f) # \( -name "*.yaml" -o -name "*.yml" -o -name "*.env" \) -a -not -name "*kustomization.yaml" -a -not -name "*profile-instance.yaml" -a -not -name "*namespace.yaml" -a -not -path "*/.github/*")
     # elif [ "$operation" == "decrypt" ]; then
