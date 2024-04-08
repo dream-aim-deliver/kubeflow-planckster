@@ -1,0 +1,74 @@
+name: Run Kustomize
+
+on:
+  - push
+
+jobs:
+  kustomize:
+    name: Run Kustomize
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+    - name: Check out repo
+      uses: actions/checkout@v2
+
+    - name: Install kustomize
+      run: .github/scripts/install_kustomize.sh
+
+    - name: Install kubeseal
+      run: .github/scripts/install_kubeseal.sh
+
+    - name: Load brain12 certificates
+      env:
+        CERT_BRAIN12_PRIVATE: ${{ secrets.CERT_BRAIN12_PRIVATE }}
+        CERT_BRAIN12_PUBLIC: ${{ secrets.CERT_BRAIN12_PUBLIC }}
+      run: |
+      
+        if [ -z "$CERT_BRAIN12_PRIVATE" ]; then
+            echo "CERT_BRAIN12_PRIVATE is empty"
+            exit 1
+        fi
+        if [ -z "$CERT_BRAIN12_PUBLIC" ]; then
+            echo "CERT_BRAIN12_PUBLIC is empty"
+            exit 1
+        fi
+        mkdir -p ./cert
+        echo "$CERT_BRAIN12_PRIVATE" | base64 --decode > cert/brain12/private.key
+        echo "$CERT_BRAIN12_PUBLIC" | base64 --decode > cert/brain12/public.crt
+
+
+    - name: Unveil brain12 secrets
+      run: |
+        bash scripts/unveil.sh decrypt brain12 --all
+
+    - name: Generate and seal secrets for brain12
+      run: bash scripts/generate_and_seal.sh brain12
+
+        
+    - name: Run kustomize for brain12
+      run: |
+        kustomize build env/brain12 | tee brain12_install.yaml
+        if [ ! -s brain12_install.yaml ]; then
+          echo "brain12_install.yaml is empty"
+          exit 1
+        fi
+    
+    # - name: Autocommit sealed secrets
+    #   uses: stefanzweifel/git-auto-commit-action@v5
+    #   if: github.ref != 'refs/heads/main'
+    #   with:
+    #     commit_message: "Update sealed secrets :space_invader:"
+    #     file_pattern: '*sealed.json'
+    #     commit_author: ${{ steps.last-commit.outputs.author }}
+    #     skip_fetch: true    
+    #     skip_checkout: true
+    
+    - name: Upload brain12 install.yaml
+      uses: actions/upload-artifact@v3
+      with:
+        name: brain12_install.yaml
+        path: brain12_install.yaml
+        retention-days: 5

@@ -1,0 +1,4 @@
+# Do not track certificates
+*.key
+*.dec
+*.crt
