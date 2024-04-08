@@ -4,6 +4,8 @@ kind: Kustomization
 resources:
   # Bitnami
   - ../base/bitnami
+  # Sealed Secrets
+  - ../../env/brain12
   # ArgoCD
   - ../base/argocd
 patchesStrategicMerge:
@@ -11,4 +13,3 @@ patchesStrategicMerge:
   - argocd/planckster-kubeflow-core-namespaces-application.yaml
   - argocd/planckster-kubeflow-components-namespaces-application.yaml
   - argocd/planckster-kubeflow-components-application.yaml
-  - argocd/planckster-secrets-application.yaml

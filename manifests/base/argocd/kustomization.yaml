@@ -7,10 +7,7 @@ resources:
   - namespace.yaml
   - install.yaml
   # Applications
-  - planckster-secrets-application.yaml
   - planckster-kubeflow-core-application.yaml
   - planckster-kubeflow-core-namespaces-application.yaml
   - planckster-kubeflow-components-application.yaml
   - planckster-kubeflow-components-namespaces-application.yaml
-  - planckster-data-baits-examples-application.yaml
-  - redeployer-application.yaml
