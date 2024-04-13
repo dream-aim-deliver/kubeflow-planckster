@@ -5,7 +5,7 @@
 # Do not track original files
 *.yaml 
 !kustomization.yaml
-!user-namespace/**/profile-instance.yaml
+!**/user-namespace/profile-instance.yaml
 !namespace.yaml
 !.github/**/*.yaml
 !manifests/**/*.yaml

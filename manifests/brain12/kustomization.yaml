@@ -8,6 +8,8 @@ resources:
   - ../../env/brain12
   # ArgoCD
   - ../base/argocd
+  # Persitent Storage
+  - storage/brain12-persistent-storage.yaml
 patchesStrategicMerge:
   - argocd/planckster-kubeflow-core-application.yaml
   - argocd/planckster-kubeflow-core-namespaces-application.yaml
